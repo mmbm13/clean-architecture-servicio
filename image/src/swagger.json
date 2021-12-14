@@ -1,0 +1,294 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "TalentPool API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/api/V1",
+      "description": "SwaggerHub API Test local"
+    },
+    {
+      "url": "https://virtserver.swaggerhub.com/mmbm13/Talentpool/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Imagen",
+      "description": "CRUD imagen"
+    }
+  ],
+  "paths": {
+    "/imagen": {
+      "get": {
+        "tags": [
+          "Imagen"
+        ],
+        "summary": "Devuelve el listado de imagenes",
+        "responses": {
+          "200": {
+            "description": "lista de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error al listar las imagenes"
+          }
+        }
+      }
+    },
+    "/imagen/crear": {
+      "post": {
+        "tags": [
+          "Imagen"
+        ],
+        "summary": "crea una nueva imagen",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/image"
+              },
+              "example": {
+                "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAQhgAAEIYBNK3"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Imagen creada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "No se pudo crear la imagen"
+          }
+        }
+      }
+    },
+    "/imagen/editar/{id}": {
+      "put": {
+        "tags": [
+          "Imagen"
+        ],
+        "summary": "edita una imagen",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador unico para editar la imagen",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "619eb63d960f4557ae214e91"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "imagen editada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro la imagen",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_2"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al editar la imagen"
+          }
+        }
+      }
+    },
+    "/imagen/detalle/{id}": {
+      "get": {
+        "tags": [
+          "Imagen"
+        ],
+        "summary": "detalle de una imagen por id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador unico para buscar la imagen",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "619eb63d960f4557ae214e91"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "imagen encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro la imagen",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_2"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al editar la imagen"
+          }
+        }
+      }
+    },
+    "/imagen/eliminar/{id}": {
+      "delete": {
+        "tags": [
+          "Imagen"
+        ],
+        "summary": "elimina una imagen por id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador unico para buscar la imagen",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "619eb63d960f4557ae214e91"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "imagen eliminada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro la imagen",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_2"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al eliminar la imagen"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "image": {
+        "required": [
+          "photo"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "identificador unico de la imagen"
+          },
+          "photo": {
+            "type": "string",
+            "description": "imagen en base 64"
+          },
+          "__v": {
+            "type": "string",
+            "description": "version del documento"
+          }
+        },
+        "example": {
+          "_id": "61a4dbf27ee8c8748a7b64f6",
+          "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAg",
+          "__v": 0
+        }
+      },
+      "inline_response_200_3": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total",
+            "example": 2
+          },
+          "data": {
+            "type": "array",
+            "example": [
+              {
+                "_id": "61a4dbf27ee8c8748a7b64f6",
+                "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAg",
+                "__v": 0
+              },
+              {
+                "_id": "61a4dca7387dff0b93308084",
+                "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAg{",
+                "__v": 0
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/image"
+            }
+          }
+        }
+      },
+      "inline_response_404_2": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "mensaje"
+          }
+        },
+        "example": {
+          "message": "No se ha encontrado la imagen"
+        }
+      }
+    }
+  }
+}

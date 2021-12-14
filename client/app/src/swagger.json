@@ -1,0 +1,720 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "TalentPool API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/api/V1",
+      "description": "SwaggerHub API Test local"
+    },
+    {
+      "url": "https://virtserver.swaggerhub.com/mmbm13/Talentpool/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Clientes",
+      "description": "CRUD clientes"
+    },
+    {
+      "name": "Imagen",
+      "description": "CRUD imagen"
+    }
+  ],
+  "paths": {
+    "/cliente": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Devuelve la lista de clientes",
+        "responses": {
+          "200": {
+            "description": "lista de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cliente/crear": {
+      "post": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Crea un nuevo cliente",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/client"
+              },
+              "examples": {
+                "client": {
+                  "$ref": "#/components/examples/client"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Cliente creado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/client"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "No se pudo crear el cliente"
+          }
+        }
+      }
+    },
+    "/cliente/editar/{id}": {
+      "put": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "edita un cliente",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador unico para editar el cliente",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente editado exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro el cliente o no hay ningun dato a cambiar",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al editar el cliente"
+          }
+        }
+      }
+    },
+    "/cliente/detalle/{id}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "detalle de un cliente por Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador unico para buscar el cliente",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/client"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro el cliente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al buscar el cliente"
+          }
+        }
+      }
+    },
+    "/cliente/consulta/{id}/{identificacion}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "detalle de un cliente por Id y por identificacion",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador unico para buscar el cliente",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "identificacion",
+            "in": "path",
+            "description": "documento de identificacion del cliente",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente encontrado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/client"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro el cliente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al buscar el cliente"
+          }
+        }
+      }
+    },
+    "/cliente/consulta/consultaEdad/{edad}": {
+      "get": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Filtrar clientes con una edad mayor o igual a la especificada",
+        "parameters": [
+          {
+            "name": "edad",
+            "in": "path",
+            "description": "edad para filtrar los clientes",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "lista de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al filtar los clientes"
+          }
+        }
+      }
+    },
+    "/cliente/eliminar/{id}": {
+      "delete": {
+        "tags": [
+          "Clientes"
+        ],
+        "summary": "Elimina un cliente por Id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador unico para eliminar el cliente",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "cliente eliminado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro el cliente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_1"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al eliminar el cliente"
+          }
+        }
+      }
+    },
+    "/imagen": {
+      "get": {
+        "tags": [
+          "Imagen"
+        ],
+        "summary": "Devuelve el listado de imagenes",
+        "responses": {
+          "200": {
+            "description": "lista de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "error al listar las imagenes"
+          }
+        }
+      }
+    },
+    "/imagen/crear": {
+      "post": {
+        "tags": [
+          "Imagen"
+        ],
+        "summary": "crea una nueva imagen",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/image"
+              },
+              "example": {
+                "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAQhgAAEIYBNK3"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Imagen creada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "No se pudo crear la imagen"
+          }
+        }
+      }
+    },
+    "/imagen/editar/{id}": {
+      "put": {
+        "tags": [
+          "Imagen"
+        ],
+        "summary": "edita una imagen",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador unico para editar la imagen",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "619eb63d960f4557ae214e91"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "imagen editada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro la imagen",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_2"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al editar la imagen"
+          }
+        }
+      }
+    },
+    "/imagen/detalle/{id}": {
+      "get": {
+        "tags": [
+          "Imagen"
+        ],
+        "summary": "detalle de una imagen por id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador unico para buscar la imagen",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "619eb63d960f4557ae214e91"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "imagen encontrada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro la imagen",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_2"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al editar la imagen"
+          }
+        }
+      }
+    },
+    "/imagen/eliminar/{id}": {
+      "delete": {
+        "tags": [
+          "Imagen"
+        ],
+        "summary": "elimina una imagen por id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identificador unico para buscar la imagen",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            },
+            "example": "619eb63d960f4557ae214e91"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "imagen eliminada",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/image"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No se encontro la imagen",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_404_2"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error al eliminar la imagen"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "client": {
+        "required": [
+          "date",
+          "identification",
+          "identificationType",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "identificador unico del cliente"
+          },
+          "name": {
+            "type": "string",
+            "description": "nombre del cliente"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "apellido del cliente"
+          },
+          "identification": {
+            "type": "string",
+            "description": "identificacion del cliente"
+          },
+          "date": {
+            "type": "string",
+            "description": "fecha de nacimieto"
+          },
+          "city": {
+            "type": "string",
+            "description": "ciudad de residencia"
+          },
+          "image": {
+            "type": "string",
+            "description": "identificador unico de la tabla imagen de mongoDB"
+          },
+          "identificationType": {
+            "type": "integer",
+            "description": "clave foranea de la tabla del tipo de identificacion"
+          }
+        },
+        "example": {
+          "id": 1,
+          "name": "michael",
+          "lastName": "bonilla",
+          "identification": "1013660809",
+          "date": "1995-09-08",
+          "city": "Bogota",
+          "image": "sfdsdgvjhkioiewd",
+          "identificationType": {
+            "id": 1,
+            "name": "CC"
+          }
+        }
+      },
+      "image": {
+        "required": [
+          "photo"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "identificador unico de la imagen"
+          },
+          "photo": {
+            "type": "string",
+            "description": "imagen en base 64"
+          },
+          "__v": {
+            "type": "string",
+            "description": "version del documento"
+          }
+        },
+        "example": {
+          "_id": "61a4dbf27ee8c8748a7b64f6",
+          "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAg",
+          "__v": 0
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total",
+            "example": 1
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/client"
+            }
+          }
+        }
+      },
+      "inline_response_200_1": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "mensaje"
+          }
+        },
+        "example": {
+          "message": "Cliente editado exitosamente"
+        }
+      },
+      "inline_response_404": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "mensaje"
+          }
+        },
+        "example": {
+          "message": "No se ha encontrado ningun cliente o no hay ningun dato diferente"
+        }
+      },
+      "inline_response_404_1": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "mensaje"
+          }
+        },
+        "example": {
+          "message": "No se ha encontrado ningun cliente"
+        }
+      },
+      "inline_response_200_2": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "mensaje"
+          }
+        },
+        "example": {
+          "message": "Cliente eliminado"
+        }
+      },
+      "inline_response_200_3": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "description": "Total",
+            "example": 2
+          },
+          "data": {
+            "type": "array",
+            "example": [
+              {
+                "_id": "61a4dbf27ee8c8748a7b64f6",
+                "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAg",
+                "__v": 0
+              },
+              {
+                "_id": "61a4dca7387dff0b93308084",
+                "photo": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABHNCSVQICAg{",
+                "__v": 0
+              }
+            ],
+            "items": {
+              "$ref": "#/components/schemas/image"
+            }
+          }
+        }
+      },
+      "inline_response_404_2": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "mensaje"
+          }
+        },
+        "example": {
+          "message": "No se ha encontrado la imagen"
+        }
+      }
+    },
+    "examples": {
+      "client": {
+        "value": {
+          "name": "michael",
+          "lastName": "bonilla",
+          "identification": "1013660809",
+          "date": "1995-08-09",
+          "city": "bogota",
+          "image": "sfdsdgvjhkioiewd",
+          "identificationTypeId": 1
+        }
+      }
+    }
+  }
+}
